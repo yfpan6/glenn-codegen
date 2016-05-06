@@ -163,6 +163,7 @@ public class DomainConfigFormPanel extends JPanel {
 //        row2.add(ll);
         row2.add(Box.createHorizontalStrut(5));
         hasAutoInIdCol = new JCheckBox("生成文件中包含列[auto_inc_id]");
+        hasAutoInIdCol.setSelected(true);
         hasAutoInIdCol.setToolTipText("选中则将在生成的实体、mapper.xml中包含auto_inc_id, 否则忽略此列");
 //        String includeAutoIncId = GlobalConfig.getString("include.col.auto_inc_id");
 //        if (!StringUtil.isBLank(includeAutoIncId) && "true".equals(includeAutoIncId.trim())) {

@@ -59,7 +59,7 @@
       <build>
         <resources>
           <resource>
-            <directory>src/main/config/release</directory>
+            <directory>src/main/config/development</directory>
           </resource>
           <resource>
             <directory>src/main/config/global</directory>
@@ -79,9 +79,10 @@
       <build>
         <resources>
           <resource>
-            <excludes>
-              <exclude>*.*</exclude>
-            </excludes>
+            <directory>src/main/config/release</directory>
+          </resource>
+          <resource>
+            <directory>src/main/config/global</directory>
           </resource>
         </resources>
       </build>

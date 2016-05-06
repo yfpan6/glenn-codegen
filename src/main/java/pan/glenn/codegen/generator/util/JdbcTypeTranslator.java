@@ -41,7 +41,7 @@ public class JdbcTypeTranslator extends JavaTypeResolverDefaultImpl {
             if ("int".equalsIgnoreCase(jdbcTypeName)) {
                 jdbcType = Types.INTEGER;
             } else if ("datetime".equalsIgnoreCase(jdbcTypeName)) {
-                jdbcType = Types.DATE;
+                jdbcType = Types.TIMESTAMP;
             }
         }
         return jdbcType;

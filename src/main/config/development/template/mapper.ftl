@@ -66,25 +66,29 @@
         </if>
     </sql>
 
+    <sql id="batchUpdateByIdsSql">
+        UPDATE ${domainConfig.tableName}
+        <trim prefix="SET" suffixOverrides=",">
+        <#list domainConfig.fields as field>
+            <#if field.columnName!="auto_inc_id">
+            <if test="entity.${field.fieldName} != null">
+            ${field.columnName} = ${"#"}{entity.${field.fieldName}},
+            </if>
+            </#if>
+        </#list>
+        </trim>
+    </sql>
+
     <sql id="updateSql">
         UPDATE ${domainConfig.tableName}
         <trim prefix="SET" suffixOverrides=",">
-            <choose>
-                <when test="entity != null">
-                <#list domainConfig.fields as field>
-                    <if test="entity.${field.fieldName} != null">
-                        ${field.columnName} = ${"#"}{entity.${field.fieldName}},
-                    </if>
-                </#list>
-                </when>
-                <otherwise>
-                <#list domainConfig.fields as field>
-                    <if test="${field.fieldName} != null">
-                        ${field.columnName} = ${"#"}{${field.fieldName}},
-                    </if>
-                </#list>
-                </otherwise>
-            </choose>
+        <#list domainConfig.fields as field>
+            <#if field.columnName!="auto_inc_id">
+            <if test="${field.fieldName} != null">
+            ${field.columnName} = ${"#"}{${field.fieldName}},
+            </if>
+            </#if>
+        </#list>
         </trim>
     </sql>
 
@@ -95,7 +99,9 @@
     <sql id="insertColumns">
         <trim prefix="" suffixOverrides=",">
         <#list domainConfig.fields as field>
+            <#if field.columnName!="auto_inc_id">
             ${field.columnName},
+            </#if>
         </#list>
         </trim>
     </sql>
@@ -103,7 +109,9 @@
     <sql id="insertValues">
         <trim prefix="" suffixOverrides=",">
         <#list domainConfig.fields as field>
+            <#if field.columnName!="auto_inc_id">
             ${"#"}{${field.fieldName}},
+            </#if>
         </#list>
         </trim>
     </sql>
@@ -113,7 +121,9 @@
             (
             <trim prefix="" suffixOverrides=",">
             <#list domainConfig.fields as field>
+                <#if field.columnName!="auto_inc_id">
                 ${"#"}{${field.fieldName}},
+                </#if>
             </#list>
             </trim>
             )
@@ -161,15 +171,11 @@
     </update>
 
     <update id="updateByIds" parameterType="BatchUpdateByIdsParam">
-        <include refid="updateSql"/>
+        <include refid="batchUpdateByIdsSql"/>
         <where>
             ${domainConfig.keyColumnName} IN
-            <foreach collection="ids" item="item" index="index" separator=",">
-                (
-                <trim prefix="" suffixOverrides=",">
-                ${"#"}{item},
-                </trim>
-                )
+            <foreach collection="ids" open="(" close=")" item="item" index="index" separator=",">
+                ${"#"}{item}
             </foreach>
             <include refid="conditionSqlForUD"/>
         </where>
@@ -210,12 +216,8 @@
         <include refid="selectSql"/>
         <where>
             ${domainConfig.alias}.${domainConfig.keyColumnName} IN
-            <foreach collection="ids" item="item" index="index" separator=",">
-                (
-                <trim prefix="" suffixOverrides=",">
-                    ${"#"}{item},
-                </trim>
-                )
+            <foreach collection="ids" open="(" close=")" item="item" index="index" separator=",">
+                ${"#"}{item}
             </foreach>
             <include refid="conditionSqlForWhere"/>
         </where>

@@ -14,12 +14,12 @@
 			<outputDirectory>bin</outputDirectory>
 		</fileSet>
 		<fileSet>
-			<directory>src/main/script</directory>
-			<outputDirectory>bin</outputDirectory>
-		</fileSet>
-		<fileSet>
-			<directory>src/main/config/release</directory>
+			<directory>target/classes</directory>
 			<outputDirectory>conf</outputDirectory>
+			<includes>
+				<include>template/*</include>
+				<include>*.properties</include>
+			</includes>
 		</fileSet>
 	</fileSets>
 	<dependencySets>

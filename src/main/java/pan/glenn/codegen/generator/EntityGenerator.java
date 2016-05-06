@@ -38,6 +38,9 @@ public class EntityGenerator extends GlennGenerator{
         List<DomainField> fields = domainConfig.getFields();
         Field colNameField = null;
         for (DomainField domainField : fields) {
+            if (!domainField.isShowInEntity()) {
+                continue;
+            }
             colNameField = new Field();
             colNameField.setType(FullyQualifiedJavaType.getStringInstance());
             colNameField.setVisibility(JavaVisibility.PUBLIC);
@@ -53,6 +56,9 @@ public class EntityGenerator extends GlennGenerator{
         Method getter = null;
         Method setter = null;
         for (DomainField domainField : fields) {
+            if (!domainField.isShowInEntity()) {
+                continue;
+            }
             field = JavaBeanUtil.getJavaBeansField(domainField);
             if (field.getType().equals(FullyQualifiedJavaType.getDateInstance())) {
                 clazz.addImportedType(field.getType());

@@ -198,11 +198,11 @@ public class DomainConfigPanel extends JPanel {
 			field.setFieldJavaType(toStringVal(row, "fieldJavaType"));
 			field.setFieldMaxLength(toStringVal(row, "fieldMaxLength"));
 			field.setFieldName(toStringVal(row, "fieldName"));
-			field.setRequired(toBooleanVal(row, "required"));
-			field.setShowInEntity(toBooleanVal(row, "showInEntity"));
-			field.setShowInList(toBooleanVal(row, "showInList"));
-			field.setShowInAddForm(toBooleanVal(row, "showInAddForm"));
-			field.setShowInUpdateForm(toBooleanVal(row, "showInUpdateForm"));
+			field.setRequired(toBooleanVal(row, "isRequired"));
+			field.setShowInEntity(toBooleanVal(row, "isShowInEntity"));
+			field.setShowInList(toBooleanVal(row, "isShowInList"));
+			field.setShowInAddForm(toBooleanVal(row, "isShowInAddForm"));
+			field.setShowInUpdateForm(toBooleanVal(row, "isShowInUpdateForm"));
 			field.setUiElement(toStringVal(row, "uiElement"));
 
 			if (StringUtil.isBLank(field.getFieldName())) {
